@@ -1,0 +1,20 @@
+.container {
+  width: 300px;
+  margin: auto;
+
+  &__header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  &__input {
+    width: 80%;
+  }
+
+  &__button {
+
+  }
+}
+
+.todos {
+}
