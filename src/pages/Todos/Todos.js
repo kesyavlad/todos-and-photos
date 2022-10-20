@@ -17,12 +17,13 @@ const Todos = () => {
   const [status, setStatus] = useState(true);
   const [showUpdateInput, setShowUpdateInput] = useState(false);
   const [disable, setDisable] = useState(true);
+  const [disableUpdate, setDisableUpdate] = useState(false);
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks);
   useEffect(() => {
     input.trim().length > 0 ? setDisable(false) : setDisable(true);
   }, [input]);
-  localStorage.setItem("task", JSON.stringify(tasks));
+
   const addTask = () => {
     const newTask = {
       id: Date.now(),
@@ -41,6 +42,7 @@ const Todos = () => {
   const cancelUpdateData = () => {
     setUpdateData("");
     setShowUpdateInput(false);
+    setDisableUpdate(false);
   };
   const changeTask = (e) => {
     let newEntry = {
@@ -48,11 +50,13 @@ const Todos = () => {
       input: e.target.value,
       status: updateData.status,
     };
+    setDisableUpdate(true);
     setUpdateData(newEntry);
   };
   const updateTask = () => {
     dispatch(changeTaskAction(updateData));
     setShowUpdateInput(false);
+    setDisableUpdate(false);
   };
 
   return (
@@ -103,23 +107,6 @@ const Todos = () => {
       )}
 
       <div className="todos">
-        {/*<FormControl>*/}
-        {/*  <FormLabel id="demo-row-radio-buttons-group-label">Filter</FormLabel>*/}
-        {/*  <RadioGroup*/}
-        {/*    row*/}
-        {/*    aria-labelledby="demo-row-radio-buttons-group-label"*/}
-        {/*    name="row-radio-buttons-group"*/}
-        {/*  >*/}
-        {/*    <FormControlLabel value="All" control={<Radio />} label="All" />*/}
-        {/*    <FormControlLabel value="Done" control={<Radio />} label="Todo" />*/}
-        {/*    <FormControlLabel*/}
-        {/*      value="Not done"*/}
-        {/*      control={<Radio />}*/}
-        {/*      label="Done"*/}
-        {/*    />*/}
-        {/*  </RadioGroup>*/}
-        {/*</FormControl>*/}
-
         {tasks
           .sort((a, b) => (a.status > b.status ? -1 : 1))
           .map((taskText) => (
@@ -132,6 +119,8 @@ const Todos = () => {
               setUpdateData={setUpdateData}
               id={taskText.id}
               setShowUpdateInput={setShowUpdateInput}
+              setDisableUpdate={setDisableUpdate}
+              disableUpdate={disableUpdate}
             />
           ))}
       </div>

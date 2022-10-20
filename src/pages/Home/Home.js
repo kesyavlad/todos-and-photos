@@ -6,7 +6,7 @@ const Home = () => {
     <>
       <div className="Navigation">
         <NavLink to="todos" className="Navigation__Button">
-          todos
+          Todos
         </NavLink>
         <NavLink to="photos" className="Navigation__Button">
           Images

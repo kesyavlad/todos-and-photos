@@ -4,7 +4,6 @@ import { Checkbox, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import { Link } from "react-router-dom";
-// import Link from "@mui/material/Link";
 const Task = ({
   text,
   remove,
@@ -13,6 +12,8 @@ const Task = ({
   setUpdateData,
   id,
   setShowUpdateInput,
+  setDisableUpdate,
+  disableUpdate,
 }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -30,6 +31,7 @@ const Task = ({
               markDone(text);
             }}
             title="Done"
+            disabled={disableUpdate}
           />
           {status ? (
             <IconButton
@@ -38,7 +40,8 @@ const Task = ({
               onClick={() =>
                 setUpdateData(
                   { id: id, input: text, status: status },
-                  setShowUpdateInput(true)
+                  setShowUpdateInput(true),
+                  setDisableUpdate(true)
                 )
               }
               title="Update"
@@ -53,6 +56,7 @@ const Task = ({
               remove(text);
             }}
             title="Delete"
+            disabled={disableUpdate}
           >
             <DeleteIcon />
           </IconButton>
