@@ -4,9 +4,16 @@ import {
   CHANGE_TASK,
   DONE_TASK,
 } from "../actions/tasks/types";
+
 const defaultState = {
   tasks: [],
 };
+
+if (localStorage.getItem("task")) {
+  defaultState.tasks = JSON.parse(localStorage.getItem("task"));
+} else {
+  defaultState.tasks = [];
+}
 
 export const cashReducer = (state = defaultState, action) => {
   switch (action.type) {

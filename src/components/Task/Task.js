@@ -3,6 +3,8 @@ import "./Task.scss";
 import { Checkbox, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import { Link } from "react-router-dom";
+// import Link from "@mui/material/Link";
 const Task = ({
   text,
   remove,
@@ -13,10 +15,13 @@ const Task = ({
   setShowUpdateInput,
 }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
   return (
     <div className={status ? "task" : "task done"}>
       <div className="inside_block">
-        <div className="inside_block_text">{text}</div>
+        <Link key={id} to={`/todos/${id}`} underline="hover">
+          {text}
+        </Link>
         <div className="inside_block_icon">
           <Checkbox
             {...label}
@@ -24,6 +29,7 @@ const Task = ({
             onClick={() => {
               markDone(text);
             }}
+            title="Done"
           />
           {status ? (
             <IconButton
@@ -35,6 +41,7 @@ const Task = ({
                   setShowUpdateInput(true)
                 )
               }
+              title="Update"
             >
               <BorderColorOutlinedIcon />
             </IconButton>
@@ -45,6 +52,7 @@ const Task = ({
             onClick={() => {
               remove(text);
             }}
+            title="Delete"
           >
             <DeleteIcon />
           </IconButton>

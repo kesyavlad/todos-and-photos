@@ -1,25 +1,15 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTaskAction,
   changeTaskAction,
   deleteTaskAction,
   doneTaskAction,
-  filterAllAction,
-  filterTodoAction,
 } from "../../components/store/actions/tasks";
 import Task from "../../components/Task/Task";
 import "./Todos.scss";
 import TextField from "@mui/material/TextField";
-import {
-  Button,
-  Container,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@mui/material";
+import { Button, Container } from "@mui/material";
 
 const Todos = () => {
   const [input, setInput] = useState("");
@@ -69,7 +59,7 @@ const Todos = () => {
     <Container maxWidth="md">
       <div className="container__header" />
       {showUpdateInput ? (
-        <>
+        <div className="container__input">
           <TextField
             id="outlined-basic"
             label="Update task"
@@ -90,9 +80,9 @@ const Todos = () => {
           <Button variant="contained" color="error" onClick={cancelUpdateData}>
             Cancel
           </Button>
-        </>
+        </div>
       ) : (
-        <>
+        <div className="container__input">
           <TextField
             id="outlined-basic"
             label="New task"
@@ -101,29 +91,34 @@ const Todos = () => {
             value={input}
             style={{ width: "80%" }}
           />
-          <Button variant="contained" onClick={addTask} disabled={disable}>
+          <Button
+            variant="contained"
+            onClick={addTask}
+            disabled={disable}
+            title="Add new task"
+          >
             ADD
           </Button>
-        </>
+        </div>
       )}
 
       <div className="todos">
-        <FormControl>
-          <FormLabel id="demo-row-radio-buttons-group-label">Filter</FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby="demo-row-radio-buttons-group-label"
-            name="row-radio-buttons-group"
-          >
-            <FormControlLabel value="All" control={<Radio />} label="All" />
-            <FormControlLabel value="Done" control={<Radio />} label="Todo" />
-            <FormControlLabel
-              value="Not done"
-              control={<Radio />}
-              label="Done"
-            />
-          </RadioGroup>
-        </FormControl>
+        {/*<FormControl>*/}
+        {/*  <FormLabel id="demo-row-radio-buttons-group-label">Filter</FormLabel>*/}
+        {/*  <RadioGroup*/}
+        {/*    row*/}
+        {/*    aria-labelledby="demo-row-radio-buttons-group-label"*/}
+        {/*    name="row-radio-buttons-group"*/}
+        {/*  >*/}
+        {/*    <FormControlLabel value="All" control={<Radio />} label="All" />*/}
+        {/*    <FormControlLabel value="Done" control={<Radio />} label="Todo" />*/}
+        {/*    <FormControlLabel*/}
+        {/*      value="Not done"*/}
+        {/*      control={<Radio />}*/}
+        {/*      label="Done"*/}
+        {/*    />*/}
+        {/*  </RadioGroup>*/}
+        {/*</FormControl>*/}
 
         {tasks
           .sort((a, b) => (a.status > b.status ? -1 : 1))
