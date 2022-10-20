@@ -1,23 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTaskAction,
   changeTaskAction,
   deleteTaskAction,
   doneTaskAction,
+  filterAllAction,
+  filterTodoAction,
 } from "../../components/store/actions/tasks";
 import Task from "../../components/Task/Task";
 import "./Todos.scss";
+import TextField from "@mui/material/TextField";
+import {
+  Button,
+  Container,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 
 const Todos = () => {
   const [input, setInput] = useState("");
   const [updateData, setUpdateData] = useState({});
   const [status, setStatus] = useState(true);
   const [showUpdateInput, setShowUpdateInput] = useState(false);
-
+  const [disable, setDisable] = useState(true);
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks);
-
+  useEffect(() => {
+    input.trim().length > 0 ? setDisable(false) : setDisable(true);
+  }, [input]);
+  localStorage.setItem("task", JSON.stringify(tasks));
   const addTask = () => {
     const newTask = {
       id: Date.now(),
@@ -49,45 +64,69 @@ const Todos = () => {
     dispatch(changeTaskAction(updateData));
     setShowUpdateInput(false);
   };
+
   return (
-    <div className="container">
+    <Container maxWidth="md">
       <div className="container__header" />
       {showUpdateInput ? (
         <>
-          <input
-            type="text"
-            className="container__input"
+          <TextField
+            id="outlined-basic"
+            label="Update task"
+            variant="outlined"
+            fullWidth
             onChange={(event) => changeTask(event)}
-            value={updateData && updateData.title}
+            value={updateData && updateData.input}
+            style={{ width: "70%" }}
           />
-          <button onClick={updateTask}>Update</button>
-          <button onClick={cancelUpdateData}>Cancel</button>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={updateTask}
+            size="medium"
+          >
+            Update
+          </Button>
+          <Button variant="contained" color="error" onClick={cancelUpdateData}>
+            Cancel
+          </Button>
         </>
       ) : (
         <>
-          <input
-            type="text"
-            className="container__input"
+          <TextField
+            id="outlined-basic"
+            label="New task"
+            variant="outlined"
             onChange={(event) => setInput(event.target.value)}
             value={input}
+            style={{ width: "80%" }}
           />
-          <button className="container__button" onClick={addTask}>
-            add
-          </button>
+          <Button variant="contained" onClick={addTask} disabled={disable}>
+            ADD
+          </Button>
         </>
       )}
-      {tasks && tasks.length ? "" : "No Tasks...."}
 
       <div className="todos">
+        <FormControl>
+          <FormLabel id="demo-row-radio-buttons-group-label">Filter</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel value="All" control={<Radio />} label="All" />
+            <FormControlLabel value="Done" control={<Radio />} label="Todo" />
+            <FormControlLabel
+              value="Not done"
+              control={<Radio />}
+              label="Done"
+            />
+          </RadioGroup>
+        </FormControl>
+
         {tasks
-          .sort((a, b) => {
-            if (a.status > b.status) {
-              return -1;
-            } else if (a.status < b.status) {
-              return 1;
-            }
-            return 0;
-          })
+          .sort((a, b) => (a.status > b.status ? -1 : 1))
           .map((taskText) => (
             <Task
               text={taskText.input}
@@ -101,7 +140,8 @@ const Todos = () => {
             />
           ))}
       </div>
-    </div>
+      {tasks && tasks.length ? "" : "No Tasks...."}
+    </Container>
   );
 };
 
