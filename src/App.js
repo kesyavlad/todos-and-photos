@@ -12,7 +12,7 @@ function App() {
         <Route path="" element={<Home />}>
           <Route path="todos" element={<Todos />} />
           <Route path="todos/:id" element={<TaskPage />} />
-          <Route path="photos" element={<Images />} />
+          <Route path="images" element={<Images />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

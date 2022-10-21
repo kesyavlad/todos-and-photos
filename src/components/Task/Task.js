@@ -11,8 +11,8 @@ const Task = ({
   setUpdateData,
   id,
   setShowUpdateInput,
-  setDisableUpdate,
-  disableUpdate,
+  setDisableIconTrash,
+  disableIconTrash,
 }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const customDesign = !status
@@ -56,7 +56,7 @@ const Task = ({
               markDone(text);
             }}
             title="Done"
-            disabled={disableUpdate}
+            disabled={disableIconTrash}
           />
           {status ? (
             <IconButton
@@ -66,7 +66,7 @@ const Task = ({
                 setUpdateData(
                   { id: id, input: text, status: status },
                   setShowUpdateInput(true),
-                  setDisableUpdate(true)
+                  setDisableIconTrash(true)
                 )
               }
               title="Update"
@@ -81,7 +81,7 @@ const Task = ({
               remove(text);
             }}
             title="Delete"
-            disabled={disableUpdate}
+            disabled={disableIconTrash}
           >
             <DeleteIcon />
           </IconButton>

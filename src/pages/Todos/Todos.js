@@ -15,13 +15,23 @@ const Todos = () => {
   const [updateData, setUpdateData] = useState({});
   const [status, setStatus] = useState(true);
   const [showUpdateInput, setShowUpdateInput] = useState(false);
-  const [disable, setDisable] = useState(true);
-  const [disableUpdate, setDisableUpdate] = useState(false);
+  const [disableButtonAdd, setDisableButtonAdd] = useState(true);
+  const [disableIconTrash, setDisableIconTrash] = useState(false);
+  const [disableButtonUpdate, setDisableButtonUpdate] = useState(false);
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks);
   useEffect(() => {
-    input.trim().length > 0 ? setDisable(false) : setDisable(true);
+    input.trim().length > 0
+      ? setDisableButtonAdd(false)
+      : setDisableButtonAdd(true);
   }, [input]);
+  useEffect(() => {
+    if (updateData.input < 1) {
+      setDisableButtonUpdate(true);
+    } else {
+      setDisableButtonUpdate(false);
+    }
+  }, [updateData.input]);
   localStorage.setItem("task", JSON.stringify(tasks));
   const addTask = () => {
     const newTask = {
@@ -41,7 +51,7 @@ const Todos = () => {
   const cancelUpdateData = () => {
     setUpdateData("");
     setShowUpdateInput(false);
-    setDisableUpdate(false);
+    setDisableIconTrash(false);
   };
   const changeTask = (e) => {
     let newEntry = {
@@ -49,13 +59,13 @@ const Todos = () => {
       input: e.target.value,
       status: updateData.status,
     };
-    setDisableUpdate(true);
+    setDisableIconTrash(true);
     setUpdateData(newEntry);
   };
   const updateTask = () => {
     dispatch(changeTaskAction(updateData));
     setShowUpdateInput(false);
-    setDisableUpdate(false);
+    setDisableIconTrash(false);
   };
 
   return (
@@ -92,6 +102,7 @@ const Todos = () => {
                   color="success"
                   onClick={updateTask}
                   size="medium"
+                  disabled={disableButtonUpdate}
                 >
                   Update
                 </Button>
@@ -131,7 +142,7 @@ const Todos = () => {
             <Button
               variant="contained"
               onClick={addTask}
-              disabled={disable}
+              disabled={disableButtonAdd}
               title="Add new task"
             >
               ADD
@@ -152,8 +163,8 @@ const Todos = () => {
               setUpdateData={setUpdateData}
               id={taskText.id}
               setShowUpdateInput={setShowUpdateInput}
-              setDisableUpdate={setDisableUpdate}
-              disableUpdate={disableUpdate}
+              setDisableIconTrash={setDisableIconTrash}
+              disableIconTrash={disableIconTrash}
             />
           ))}
         {tasks && tasks.length ? "" : "No Tasks...."}
