@@ -85,7 +85,6 @@ const Todos = () => {
               spacing={2}
               direction="row"
               justifyContent="flex-end"
-              alignItems="flex-start"
             >
               <Grid item md={6}>
                 <Button

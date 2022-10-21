@@ -1,9 +1,7 @@
 import React from "react";
 import { Box, Container, Grid, Typography, Link } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 const Error = () => {
-  const navigate = useNavigate();
   return (
     <Box
       sx={{
