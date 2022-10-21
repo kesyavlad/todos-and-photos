@@ -7,9 +7,8 @@ import {
   doneTaskAction,
 } from "../../components/store/actions/tasks";
 import Task from "../../components/Task/Task";
-import "./Todos.scss";
 import TextField from "@mui/material/TextField";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 
 const Todos = () => {
   const [input, setInput] = useState("");
@@ -61,52 +60,87 @@ const Todos = () => {
 
   return (
     <Container maxWidth="md">
-      <div className="container__header" />
       {showUpdateInput ? (
-        <div className="container__input">
-          <TextField
-            id="outlined-basic"
-            label="Update task"
-            variant="outlined"
-            fullWidth
-            onChange={(event) => changeTask(event)}
-            value={updateData && updateData.input}
-            style={{ width: "70%" }}
-          />
-          <Button
-            variant="contained"
-            color="success"
-            onClick={updateTask}
-            size="medium"
-          >
-            Update
-          </Button>
-          <Button variant="contained" color="error" onClick={cancelUpdateData}>
-            Cancel
-          </Button>
-        </div>
+        <Grid
+          container
+          spacing={3}
+          direction="row"
+          alignItems="center"
+          justifyContent="flex-end"
+          style={{ marginTop: "15px", marginBottom: "15px" }}
+        >
+          <Grid item xs={12} md={9}>
+            <TextField
+              id="outlined-basic"
+              label="Update task"
+              variant="outlined"
+              fullWidth
+              onChange={(event) => changeTask(event)}
+              value={updateData && updateData.input}
+            />
+          </Grid>
+          <Grid item md={3}>
+            <Grid
+              container
+              spacing={2}
+              direction="row"
+              justifyContent="flex-end"
+              alignItems="flex-start"
+            >
+              <Grid item md={6}>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={updateTask}
+                  size="medium"
+                >
+                  Update
+                </Button>
+              </Grid>
+              <Grid item md={6}>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={cancelUpdateData}
+                >
+                  Cancel
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       ) : (
-        <div className="container__input">
-          <TextField
-            id="outlined-basic"
-            label="New task"
-            variant="outlined"
-            onChange={(event) => setInput(event.target.value)}
-            value={input}
-            style={{ width: "80%" }}
-          />
-          <Button
-            variant="contained"
-            onClick={addTask}
-            disabled={disable}
-            title="Add new task"
-          >
-            ADD
-          </Button>
-        </div>
+        <Grid
+          container
+          spacing={2}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          style={{ marginTop: "15px", marginBottom: "15px" }}
+        >
+          <Grid item xs={12} md={11}>
+            <TextField
+              id="outlined-basic"
+              label="New task"
+              variant="outlined"
+              onChange={(event) => setInput(event.target.value)}
+              value={input}
+              fullWidth
+            />
+          </Grid>
+          <Grid item md={1}>
+            <Button
+              variant="contained"
+              onClick={addTask}
+              disabled={disable}
+              title="Add new task"
+            >
+              ADD
+            </Button>
+          </Grid>
+        </Grid>
       )}
-
-      <div className="todos">
+      <>
         {tasks
           .sort((a, b) => (a.status > b.status ? -1 : 1))
           .map((taskText) => (
@@ -123,8 +157,8 @@ const Todos = () => {
               disableUpdate={disableUpdate}
             />
           ))}
-      </div>
-      {tasks && tasks.length ? "" : "No Tasks...."}
+        {tasks && tasks.length ? "" : "No Tasks...."}
+      </>
     </Container>
   );
 };
