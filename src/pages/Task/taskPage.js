@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button } from "@mui/material";
-import "./taskPage.scss";
+import { Button, Container, Typography } from "@mui/material";
 
 const TaskPage = () => {
   const { id } = useParams();
@@ -14,10 +13,17 @@ const TaskPage = () => {
     tasks.map((task) => (task.id == id ? setText(task.input) : null));
   }, [id]);
   return (
-    <div>
+    <>
       <Button onClick={goBack}>{`<Go Back`}</Button>
-      <div className="text__body">{text}</div>
-    </div>
+      <Container maxWidth="md">
+        <Typography
+          variant="h3"
+          style={{ wordBreak: "break-all", overflowX: "hidden" }}
+        >
+          {text}
+        </Typography>
+      </Container>
+    </>
   );
 };
 

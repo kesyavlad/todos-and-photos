@@ -22,7 +22,7 @@ const Todos = () => {
   useEffect(() => {
     input.trim().length > 0 ? setDisable(false) : setDisable(true);
   }, [input]);
-
+  localStorage.setItem("task", JSON.stringify(tasks));
   const addTask = () => {
     const newTask = {
       id: Date.now(),
