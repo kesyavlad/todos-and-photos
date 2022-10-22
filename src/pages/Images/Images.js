@@ -47,6 +47,7 @@ const Images = () => {
               label="Enter number page from 1 to 100"
               variant="outlined"
               type="number"
+              value={inputNumber}
               onChange={(event) => setInputNumber(event.currentTarget.value)}
               fullWidth
               InputProps={{

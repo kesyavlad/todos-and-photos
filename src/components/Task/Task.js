@@ -14,11 +14,10 @@ const Task = ({
   setDisableIconTrash,
   disableIconTrash,
 }) => {
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const customDesign = !status
     ? { textDecoration: " line-through", opacity: "0.3" }
     : { textDecoration: "none", opacity: "1" };
-
+  // console.log(label);
   return (
     <Grid
       container
@@ -50,12 +49,12 @@ const Task = ({
       <Grid md={2} xs={3}>
         <Grid container display="row" justifyContent="flex-end">
           <Checkbox
-            {...label}
             color="default"
             onClick={() => {
               markDone(text);
             }}
             title="Done"
+            checked={!status}
             disabled={disableIconTrash}
           />
           {status ? (
@@ -65,8 +64,8 @@ const Task = ({
               onClick={() =>
                 setUpdateData(
                   { id: id, input: text, status: status },
-                  setShowUpdateInput(true),
-                  setDisableIconTrash(true)
+                  setShowUpdateInput(status),
+                  setDisableIconTrash(status)
                 )
               }
               title="Update"

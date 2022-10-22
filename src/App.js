@@ -3,7 +3,7 @@ import Home from "./pages/Home/Home";
 import Todos from "./pages/Todos/Todos";
 import Images from "./pages/Images/Images";
 import Error from "./pages/Error/Error";
-import TaskPage from "./pages/Task/taskPage";
+import TaskPage from "./pages/TaskPage/taskPage";
 
 function App() {
   return (

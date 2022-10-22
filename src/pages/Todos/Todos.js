@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTaskAction,
-  changeTaskAction,
   deleteTaskAction,
   doneTaskAction,
-} from "../../components/store/actions/tasks";
+  changeTaskAction,
+} from "../../components/store/todoSlice";
 import Task from "../../components/Task/Task";
 import TextField from "@mui/material/TextField";
 import { Button, Container, Grid } from "@mui/material";
@@ -19,7 +19,7 @@ const Todos = () => {
   const [disableIconTrash, setDisableIconTrash] = useState(false);
   const [disableButtonUpdate, setDisableButtonUpdate] = useState(false);
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector((state) => state.todos.tasks);
   useEffect(() => {
     input.trim().length > 0
       ? setDisableButtonAdd(false)
@@ -32,21 +32,15 @@ const Todos = () => {
       setDisableButtonUpdate(false);
     }
   }, [updateData.input]);
-  localStorage.setItem("task", JSON.stringify(tasks));
   const addTask = () => {
-    const newTask = {
-      id: Date.now(),
-      input,
-      status,
-    };
-    dispatch(addTaskAction(newTask));
+    dispatch(addTaskAction({ input, status }));
     setInput("");
   };
-  const deleteTask = (id) => {
-    dispatch(deleteTaskAction(id));
+  const deleteTaskId = (id) => {
+    dispatch(deleteTaskAction({ id }));
   };
   const markDone = (id) => {
-    dispatch(doneTaskAction(id));
+    dispatch(doneTaskAction({ id }));
   };
   const cancelUpdateData = () => {
     setUpdateData("");
@@ -151,22 +145,21 @@ const Todos = () => {
         </Grid>
       )}
       <>
-        {tasks
-          .sort((a, b) => (a.status > b.status ? -1 : 1))
-          .map((taskText) => (
-            <Task
-              text={taskText.input}
-              key={taskText.id}
-              remove={() => deleteTask(taskText.id)}
-              markDone={() => markDone(taskText.id)}
-              status={taskText.status}
-              setUpdateData={setUpdateData}
-              id={taskText.id}
-              setShowUpdateInput={setShowUpdateInput}
-              setDisableIconTrash={setDisableIconTrash}
-              disableIconTrash={disableIconTrash}
-            />
-          ))}
+        {tasks.map((taskText) => (
+          <Task
+            text={taskText.input}
+            key={taskText.id}
+            remove={() => deleteTaskId(taskText.id)}
+            markDone={() => markDone(taskText.id)}
+            status={taskText.status}
+            setUpdateData={setUpdateData}
+            id={taskText.id}
+            setShowUpdateInput={setShowUpdateInput}
+            setDisableIconTrash={setDisableIconTrash}
+            disableIconTrash={disableIconTrash}
+            setStatus={setStatus}
+          />
+        ))}
         {tasks && tasks.length ? "" : "No Tasks...."}
       </>
     </Container>
