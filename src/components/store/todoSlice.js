@@ -25,6 +25,9 @@ const todoSlice = createSlice({
         JSON.parse(JSON.stringify(action.payload)),
       ];
     },
+    sortTaskAction(state, action) {
+      state.tasks.sort((a, b) => (a.status > b.status ? -1 : 1));
+    },
     doneTaskAction(state, action) {
       state.tasks = state.tasks.map((task) => {
         if (task.id === action.payload.id) {
@@ -41,5 +44,6 @@ export const {
   deleteTaskAction,
   changeTaskAction,
   doneTaskAction,
+  sortTaskAction,
 } = todoSlice.actions;
 export default todoSlice.reducer;

@@ -2,7 +2,6 @@ import React from "react";
 import { Checkbox, Grid, IconButton, Typography, Link } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
-
 const Task = ({
   text,
   remove,
@@ -17,7 +16,6 @@ const Task = ({
   const customDesign = !status
     ? { textDecoration: " line-through", opacity: "0.3" }
     : { textDecoration: "none", opacity: "1" };
-  // console.log(label);
   return (
     <Grid
       container
@@ -35,7 +33,7 @@ const Task = ({
         textDecoration: customDesign.textDecoration,
       }}
     >
-      <Grid md={10} xs={9}>
+      <Grid md={10} xs={10}>
         <Link key={id} href={`/#/todos/${id}`} underline="hover">
           <Typography
             variant="subtitle1"
@@ -46,7 +44,7 @@ const Task = ({
         </Link>
       </Grid>
 
-      <Grid md={2} xs={3}>
+      <Grid md={2} xs={12}>
         <Grid container display="row" justifyContent="flex-end">
           <Checkbox
             color="default"

@@ -5,6 +5,7 @@ import {
   deleteTaskAction,
   doneTaskAction,
   changeTaskAction,
+  sortTaskAction,
 } from "../../components/store/todoSlice";
 import Task from "../../components/Task/Task";
 import TextField from "@mui/material/TextField";
@@ -20,6 +21,7 @@ const Todos = () => {
   const [disableButtonUpdate, setDisableButtonUpdate] = useState(false);
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.todos.tasks);
+
   useEffect(() => {
     input.trim().length > 0
       ? setDisableButtonAdd(false)
@@ -34,6 +36,7 @@ const Todos = () => {
   }, [updateData.input]);
   const addTask = () => {
     dispatch(addTaskAction({ input, status }));
+    dispatch(sortTaskAction());
     setInput("");
   };
   const deleteTaskId = (id) => {
@@ -41,6 +44,7 @@ const Todos = () => {
   };
   const markDone = (id) => {
     dispatch(doneTaskAction({ id }));
+    dispatch(sortTaskAction());
   };
   const cancelUpdateData = () => {
     setUpdateData("");
@@ -73,7 +77,7 @@ const Todos = () => {
           justifyContent="flex-end"
           style={{ marginTop: "15px", marginBottom: "15px" }}
         >
-          <Grid item xs={12} md={9}>
+          <Grid item={true} xs={12} md={9}>
             <TextField
               id="outlined-basic"
               label="Update task"
@@ -83,14 +87,14 @@ const Todos = () => {
               value={updateData && updateData.input}
             />
           </Grid>
-          <Grid item md={3}>
+          <Grid item={true} md={3}>
             <Grid
               container
               spacing={2}
               direction="row"
               justifyContent="flex-end"
             >
-              <Grid item md={6}>
+              <Grid item={true} md={6}>
                 <Button
                   variant="contained"
                   color="success"
@@ -101,7 +105,7 @@ const Todos = () => {
                   Update
                 </Button>
               </Grid>
-              <Grid item md={6}>
+              <Grid item={true} md={6}>
                 <Button
                   variant="contained"
                   color="error"
@@ -122,7 +126,7 @@ const Todos = () => {
           alignItems="center"
           style={{ marginTop: "15px", marginBottom: "15px" }}
         >
-          <Grid item xs={12} md={11}>
+          <Grid item={true} xs={12} md={11}>
             <TextField
               id="outlined-basic"
               label="New task"
@@ -132,7 +136,7 @@ const Todos = () => {
               fullWidth
             />
           </Grid>
-          <Grid item md={1}>
+          <Grid item={true} md={1}>
             <Button
               variant="contained"
               onClick={addTask}
