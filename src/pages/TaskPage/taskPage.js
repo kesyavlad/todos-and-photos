@@ -6,11 +6,11 @@ import { Button, Container, Typography } from "@mui/material";
 const TaskPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector((state) => state.todos.tasks);
   const [text, setText] = useState("");
   const goBack = () => navigate(-1);
   useEffect(() => {
-    tasks.map((task) => (task.id == id ? setText(task.input) : null));
+    tasks.map((task) => (task.id === id ? setText(task.input) : null));
   }, [id]);
   return (
     <>
