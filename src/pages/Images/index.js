@@ -4,7 +4,7 @@ import InputNumberImages from "../../components/InputNumberImages";
 import ListImages from "../../components/ListImages";
 
 const Images = () => {
-  const [dataImage, setDataImage] = useState([]);
+  const [dataImages, setDataImages] = useState([]);
   const [inputNumber, setInputNumber] = useState("");
   const [inputError, setInputError] = useState(false);
   const [albumId, setAlbumId] = useState();
@@ -13,7 +13,7 @@ const Images = () => {
     axios
       .get(`https://jsonplaceholder.typicode.com/photos?albumId=${number}`)
       .then(({ data }) => {
-        setDataImage(data);
+        setDataImages(data);
         setAlbumId(number);
       });
   };
@@ -35,7 +35,7 @@ const Images = () => {
         getPhoto={getPhoto}
         disableButtonGet={albumId === inputNumber}
       />
-      <ListImages dataImage={dataImage} />
+      <ListImages dataImage={dataImages} />
     </>
   );
 };
