@@ -6,7 +6,6 @@ import {
   doneTaskAction,
   changeTaskAction,
   sortTaskAction,
-  filteredTaskAction,
 } from "../../components/store/todoSlice";
 import Task from "../../components/Task/Task";
 import { Container } from "@mui/material";
@@ -24,7 +23,7 @@ const Todos = () => {
   const [disableButtonAdd, setDisableButtonAdd] = useState(true);
   const [disableIconTrash, setDisableIconTrash] = useState(false);
   const [disableButtonUpdate, setDisableButtonUpdate] = useState(false);
-  const [filtered, setFiltered] = useState("All");
+  const [radioButton, setRadioButton] = useState("All");
 
   useEffect(() => {
     input.trim().length > 0
@@ -69,6 +68,7 @@ const Todos = () => {
     setShowUpdateInput(false);
     setDisableIconTrash(false);
   };
+
   return (
     <Container maxWidth="md">
       {showUpdateInput ? (
@@ -87,24 +87,32 @@ const Todos = () => {
           disableButtonAdd={disableButtonAdd}
         />
       )}
-      <FilterForm />
+      <FilterForm setRadioButton={setRadioButton} />
+      {tasks && tasks.length ? "" : "No Tasks...."}
       <>
-        {tasks.map((taskText) => (
-          <Task
-            text={taskText.input}
-            key={taskText.id}
-            remove={() => deleteTaskId(taskText.id)}
-            markDone={() => markDone(taskText.id)}
-            status={taskText.status}
-            setUpdateData={setUpdateData}
-            id={taskText.id}
-            setShowUpdateInput={setShowUpdateInput}
-            setDisableIconTrash={setDisableIconTrash}
-            disableIconTrash={disableIconTrash}
-            setStatus={setStatus}
-          />
-        ))}
-        {tasks && tasks.length ? "" : "No Tasks...."}
+        {tasks
+          .filter((task) => {
+            if (String(task.status) === radioButton) {
+              return task;
+            } else if (radioButton === "All") {
+              return task;
+            }
+          })
+          .map((taskText) => (
+            <Task
+              text={taskText.input}
+              key={taskText.id}
+              remove={() => deleteTaskId(taskText.id)}
+              markDone={() => markDone(taskText.id)}
+              status={taskText.status}
+              setUpdateData={setUpdateData}
+              id={taskText.id}
+              setShowUpdateInput={setShowUpdateInput}
+              setDisableIconTrash={setDisableIconTrash}
+              disableIconTrash={disableIconTrash}
+              setStatus={setStatus}
+            />
+          ))}
       </>
     </Container>
   );

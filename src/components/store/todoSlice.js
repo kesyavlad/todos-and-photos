@@ -36,18 +36,6 @@ const todoSlice = createSlice({
         return task;
       });
     },
-    // filteredTaskAction(state, action) {
-    //   if (action.payload === "All") {
-    //     console.log(state.tasks);
-    //     return state;
-    //   } else if (action.payload === "Todo") {
-    //     let result = state.tasks.filter((task) => task.status === true);
-    //     console.log(result);
-    //   } else if (action.payload === "") {
-    //     let result = state.tasks.filter((task) => task.status === false);
-    //     console.log(result);
-    //   }
-    // },
   },
 });
 
@@ -57,6 +45,5 @@ export const {
   changeTaskAction,
   doneTaskAction,
   sortTaskAction,
-  filteredTaskAction,
 } = todoSlice.actions;
 export default todoSlice.reducer;

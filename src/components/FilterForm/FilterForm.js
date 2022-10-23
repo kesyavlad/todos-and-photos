@@ -7,7 +7,7 @@ import {
   RadioGroup,
 } from "@mui/material";
 
-const FilterForm = () => {
+const FilterForm = ({ setRadioButton }) => {
   return (
     <FormControl>
       <FormLabel>Filter</FormLabel>
@@ -15,10 +15,13 @@ const FilterForm = () => {
         row
         aria-labelledby="row-radio-buttons-group-label"
         name="row-radio-buttons-group"
+        onChange={(event) => {
+          setRadioButton(event.target.value);
+        }}
       >
         <FormControlLabel value="All" control={<Radio />} label="All" />
-        <FormControlLabel value="Todo" control={<Radio />} label="Todo" />
-        <FormControlLabel value="" control={<Radio />} label="Done" />
+        <FormControlLabel value={true} control={<Radio />} label="Todo" />
+        <FormControlLabel value={false} control={<Radio />} label="Done" />
       </RadioGroup>
     </FormControl>
   );
