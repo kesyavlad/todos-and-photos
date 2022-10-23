@@ -1,7 +1,8 @@
 import React from "react";
-import { Checkbox, Grid, IconButton, Typography, Link } from "@mui/material";
+import { Checkbox, Grid, IconButton, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import { Link } from "react-router-dom";
 const Task = ({
   text,
   remove,
@@ -15,7 +16,7 @@ const Task = ({
   const customDesign = !status
     ? { textDecoration: " line-through", opacity: "0.3" }
     : { textDecoration: "none", opacity: "1" };
-  const style = {
+  const styles = {
     box: {
       border: "1px",
       borderRadius: "10px",
@@ -25,6 +26,15 @@ const Task = ({
       opacity: customDesign.opacity,
       textDecoration: customDesign.textDecoration,
     },
+    link: {
+      color: "black",
+      textDecoration: "none",
+      wordBreak: "break-all",
+      overflowX: "hidden",
+      "&:hover": {
+        textDecoration: "underline",
+      },
+    },
   };
   return (
     <Grid
@@ -33,14 +43,11 @@ const Task = ({
       display="row"
       justifyContent="space-between"
       alignItems="center"
-      sx={style.box}
+      sx={styles.box}
     >
       <Grid md={10} xs={10}>
-        <Link key={id} href={`/todos/${id}`} underline="hover">
-          <Typography
-            variant="subtitle1"
-            style={{ wordBreak: "break-all", overflowX: "hidden" }}
-          >
+        <Link key={id} to={`/todos/${id}`} style={{ textDecoration: "none" }}>
+          <Typography variant="subtitle1" sx={styles.link}>
             {text}
           </Typography>
         </Link>

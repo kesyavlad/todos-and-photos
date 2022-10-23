@@ -1,24 +1,32 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
-import { AppBar, Box, Link } from "@mui/material";
+import { AppBar, Box, Typography } from "@mui/material";
+
 const Home = () => {
-  const style = {
+  const styles = {
     box: {
       display: "flex",
       justifyContent: "space-around",
       margin: "15px 0 15px 0",
     },
+    link: {
+      color: "white",
+      textDecoration: "none",
+      "&:hover": {
+        textDecoration: "underline",
+      },
+    },
   };
   return (
     <>
       <AppBar position="static">
-        <Box sx={style.box}>
-          <Link href="/todos" underline="hover" color="white">
-            Todos
+        <Box sx={styles.box}>
+          <Link to="todos" style={{ textDecoration: "none" }}>
+            <Typography sx={styles.link}>Todos</Typography>
           </Link>
-          <Link href="/images" underline="hover" color="white">
-            Images
+          <Link to="images" style={{ textDecoration: "none" }}>
+            <Typography sx={styles.link}>Images</Typography>
           </Link>
         </Box>
       </AppBar>
