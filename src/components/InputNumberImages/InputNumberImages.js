@@ -7,6 +7,7 @@ const InputNumberImages = ({
   setInputNumber,
   inputError,
   getPhoto,
+  disableButtonGet,
 }) => {
   return (
     <Container maxWidth="md">
@@ -38,7 +39,12 @@ const InputNumberImages = ({
         </Grid>
 
         <Grid item md={2}>
-          <Button variant="contained" size="medium" onClick={getPhoto}>
+          <Button
+            variant="contained"
+            size="medium"
+            onClick={getPhoto}
+            disabled={disableButtonGet}
+          >
             Get photos
           </Button>
         </Grid>
