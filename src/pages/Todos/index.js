@@ -20,7 +20,6 @@ const Todos = () => {
   const [updateData, setUpdateData] = useState({});
   const [status, setStatus] = useState(true);
   const [showUpdateInput, setShowUpdateInput] = useState(false);
-  const [disableIconTrash, setDisableIconTrash] = useState(false);
   const [radioButton, setRadioButton] = useState("All");
   const addTask = () => {
     dispatch(addTaskAction({ input, status }));
@@ -37,7 +36,6 @@ const Todos = () => {
   const cancelUpdateData = () => {
     setUpdateData("");
     setShowUpdateInput(false);
-    setDisableIconTrash(false);
   };
   const changeTask = (e) => {
     let newEntry = {
@@ -45,13 +43,11 @@ const Todos = () => {
       input: e.target.value,
       status: updateData.status,
     };
-    setDisableIconTrash(true);
     setUpdateData(newEntry);
   };
   const updateTask = () => {
     dispatch(changeTaskAction(updateData));
     setShowUpdateInput(false);
-    setDisableIconTrash(false);
   };
 
   return (
@@ -94,9 +90,8 @@ const Todos = () => {
               setUpdateData={setUpdateData}
               id={taskText.id}
               setShowUpdateInput={setShowUpdateInput}
-              setDisableIconTrash={setDisableIconTrash}
-              disableIconTrash={disableIconTrash}
               setStatus={setStatus}
+              cancelUpdateData={cancelUpdateData}
             />
           ))}
       </>

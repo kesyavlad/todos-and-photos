@@ -10,8 +10,7 @@ const Task = ({
   setUpdateData,
   id,
   setShowUpdateInput,
-  setDisableIconTrash,
-  disableIconTrash,
+  cancelUpdateData,
 }) => {
   const customDesign = !status
     ? { textDecoration: " line-through", opacity: "0.3" }
@@ -56,7 +55,6 @@ const Task = ({
             }}
             title="Done"
             checked={!status}
-            disabled={disableIconTrash}
           />
           {status ? (
             <IconButton
@@ -65,8 +63,7 @@ const Task = ({
               onClick={() =>
                 setUpdateData(
                   { id: id, input: text, status: status },
-                  setShowUpdateInput(status),
-                  setDisableIconTrash(status)
+                  setShowUpdateInput(status)
                 )
               }
               title="Update"
@@ -78,10 +75,10 @@ const Task = ({
             aria-label="delete"
             size="small"
             onClick={() => {
+              cancelUpdateData();
               remove(text);
             }}
             title="Delete"
-            disabled={disableIconTrash}
           >
             <DeleteIcon />
           </IconButton>
