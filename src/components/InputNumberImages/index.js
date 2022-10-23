@@ -9,6 +9,9 @@ const InputNumberImages = ({
   getPhoto,
   disableButtonGet,
 }) => {
+  const onChange = (event) => {
+    setInputNumber(event.currentTarget.value);
+  };
   return (
     <Container maxWidth="md">
       <Grid
@@ -26,7 +29,7 @@ const InputNumberImages = ({
             variant="outlined"
             type="number"
             value={inputNumber}
-            onChange={(event) => setInputNumber(event.currentTarget.value)}
+            onChange={onChange}
             fullWidth
             InputProps={{
               inputProps: {

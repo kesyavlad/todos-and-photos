@@ -9,6 +9,9 @@ const InputUpdate = ({
   disableButtonUpdate,
   cancelUpdateData,
 }) => {
+  const onChange = (event) => {
+    changeTask(event);
+  };
   return (
     <Grid
       container
@@ -24,7 +27,7 @@ const InputUpdate = ({
           label="Update task"
           variant="outlined"
           fullWidth
-          onChange={(event) => changeTask(event)}
+          onChange={onChange}
           value={updateData && updateData.input}
         />
       </Grid>

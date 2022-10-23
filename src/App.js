@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Todos from "./pages/Todos/Todos";
-import Images from "./pages/Images/Images";
-import Error from "./pages/Error/Error";
-import TaskPage from "./pages/TaskPage/taskPage";
+import Home from "./pages/Home";
+import Todos from "./pages/Todos";
+import Images from "./pages/Images";
+import Error from "./pages/Error";
+import TaskPage from "./pages/TaskPage";
 
 function App() {
   return (

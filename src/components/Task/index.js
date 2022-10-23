@@ -16,6 +16,17 @@ const Task = ({
   const customDesign = !status
     ? { textDecoration: " line-through", opacity: "0.3" }
     : { textDecoration: "none", opacity: "1" };
+  const style = {
+    box: {
+      border: "1px",
+      borderRadius: "10px",
+      margin: "10px 0 15px 0",
+      paddingLeft: "7px",
+      boxShadow: "-5px -3px 10px rgba(0,0,0,0.5);",
+      opacity: customDesign.opacity,
+      textDecoration: customDesign.textDecoration,
+    },
+  };
   return (
     <Grid
       container
@@ -23,18 +34,10 @@ const Task = ({
       display="row"
       justifyContent="space-between"
       alignItems="center"
-      sx={{
-        border: "1px",
-        borderRadius: "10px",
-        margin: "10px 0 15px 0",
-        paddingLeft: "7px",
-        boxShadow: "-5px -3px 10px rgba(0,0,0,0.5);",
-        opacity: customDesign.opacity,
-        textDecoration: customDesign.textDecoration,
-      }}
+      sx={style.box}
     >
       <Grid md={10} xs={10}>
-        <Link key={id} href={`/#/todos/${id}`} underline="hover">
+        <Link key={id} href={`/todos/${id}`} underline="hover">
           <Typography
             variant="subtitle1"
             style={{ wordBreak: "break-all", overflowX: "hidden" }}

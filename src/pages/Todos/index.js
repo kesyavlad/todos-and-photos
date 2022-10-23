@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTaskAction,
@@ -6,12 +6,12 @@ import {
   doneTaskAction,
   changeTaskAction,
   sortTaskAction,
-} from "../../components/store/todoSlice";
-import Task from "../../components/Task/Task";
+} from "../../Redux/store/todoSlice";
+import Task from "../../components/Task";
 import { Container } from "@mui/material";
-import InputUpdate from "../../components/InputUppdate/inputUpdate";
-import InputAdd from "../../components/InputAdd/InputAdd";
-import FilterForm from "../../components/FilterForm/FilterForm";
+import InputUpdate from "../../components/InputUppdate";
+import InputAdd from "../../components/InputAdd";
+import FilterForm from "../../components/FilterForm";
 
 const Todos = () => {
   const dispatch = useDispatch();
@@ -20,23 +20,8 @@ const Todos = () => {
   const [updateData, setUpdateData] = useState({});
   const [status, setStatus] = useState(true);
   const [showUpdateInput, setShowUpdateInput] = useState(false);
-  const [disableButtonAdd, setDisableButtonAdd] = useState(true);
   const [disableIconTrash, setDisableIconTrash] = useState(false);
-  const [disableButtonUpdate, setDisableButtonUpdate] = useState(false);
   const [radioButton, setRadioButton] = useState("All");
-
-  useEffect(() => {
-    input.trim().length > 0
-      ? setDisableButtonAdd(false)
-      : setDisableButtonAdd(true);
-  }, [input]);
-  useEffect(() => {
-    if (updateData.input < 1) {
-      setDisableButtonUpdate(true);
-    } else {
-      setDisableButtonUpdate(false);
-    }
-  }, [updateData.input]);
   const addTask = () => {
     dispatch(addTaskAction({ input, status }));
     dispatch(sortTaskAction());
@@ -76,7 +61,7 @@ const Todos = () => {
           changeTask={changeTask}
           updateData={updateData}
           updateTask={updateTask}
-          disableButtonUpdate={disableButtonUpdate}
+          disableButtonUpdate={updateData.input < 1}
           cancelUpdateData={cancelUpdateData}
         />
       ) : (
@@ -84,10 +69,10 @@ const Todos = () => {
           setInput={setInput}
           input={input}
           addTask={addTask}
-          disableButtonAdd={disableButtonAdd}
+          disableButtonAdd={input.trim().length < 1}
         />
       )}
-      <FilterForm setRadioButton={setRadioButton} />
+      <FilterForm radioButton={radioButton} setRadioButton={setRadioButton} />
       <br />
       {tasks && tasks.length ? "" : "No Tasks...."}
       <>

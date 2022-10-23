@@ -3,6 +3,9 @@ import { Button, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
 const InputAdd = ({ setInput, input, addTask, disableButtonAdd }) => {
+  const onChange = (event) => {
+    setInput(event.target.value);
+  };
   return (
     <Grid
       container
@@ -17,7 +20,7 @@ const InputAdd = ({ setInput, input, addTask, disableButtonAdd }) => {
           id="outlined-basic"
           label="New task"
           variant="outlined"
-          onChange={(event) => setInput(event.target.value)}
+          onChange={onChange}
           value={input}
           fullWidth
         />
