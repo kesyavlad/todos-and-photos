@@ -5,12 +5,14 @@ import Images from "./pages/Images";
 import Error from "./pages/Error";
 import TaskPage from "./pages/TaskPage";
 import { SCREENS } from "./components/Route/RoutePath";
+import WelcomeText from "./components/WelcomeText";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="" element={<Home />}>
+          <Route path="" element={<WelcomeText />} />
           <Route path={SCREENS.PAGES.TODOS} element={<Todos />} />
           <Route path={SCREENS.PAGES.TASK_PAGE} element={<TaskPage />} />
           <Route path={SCREENS.PAGES.IMAGES} element={<Images />} />
