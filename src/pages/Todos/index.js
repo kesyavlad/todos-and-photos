@@ -79,6 +79,7 @@ const Todos = () => {
             } else if (radioButton === "All") {
               return task;
             }
+            return false;
           })
           .map((taskText) => (
             <Task

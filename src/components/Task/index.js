@@ -3,6 +3,7 @@ import { Checkbox, Grid, IconButton, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import { Link } from "react-router-dom";
+
 const Task = ({
   text,
   remove,
@@ -46,7 +47,7 @@ const Task = ({
       sx={styles.box}
     >
       <Grid md={10} xs={10}>
-        <Link key={id} to={`/todos/${id}`} style={{ textDecoration: "none" }}>
+        <Link key={id} to={id} style={{ textDecoration: "none" }}>
           <Typography variant="subtitle1" sx={styles.link}>
             {text}
           </Typography>

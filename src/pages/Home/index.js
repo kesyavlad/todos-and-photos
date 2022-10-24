@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
-
+import { SCREENS } from "../../components/Route/RoutePath";
 import { AppBar, Box, Typography } from "@mui/material";
 
 const Home = () => {
@@ -22,10 +22,10 @@ const Home = () => {
     <>
       <AppBar position="static">
         <Box sx={styles.box}>
-          <Link to="todos" style={{ textDecoration: "none" }}>
+          <Link to={SCREENS.PAGES.TODOS} style={{ textDecoration: "none" }}>
             <Typography sx={styles.link}>Todos</Typography>
           </Link>
-          <Link to="images" style={{ textDecoration: "none" }}>
+          <Link to={SCREENS.PAGES.IMAGES} style={{ textDecoration: "none" }}>
             <Typography sx={styles.link}>Images</Typography>
           </Link>
         </Box>
